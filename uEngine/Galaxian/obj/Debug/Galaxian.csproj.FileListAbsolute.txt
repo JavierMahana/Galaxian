@@ -1,0 +1,10 @@
+D:\Documentos\GitHub\Galaxian\uEngine\Galaxian\obj\Debug\Galaxian.csprojAssemblyReference.cache
+D:\Documentos\GitHub\Galaxian\uEngine\Galaxian\obj\Debug\Galaxian.csproj.CoreCompileInputs.cache
+D:\Documentos\GitHub\Galaxian\uEngine\Galaxian\bin\Debug\Galaxian.exe.config
+D:\Documentos\GitHub\Galaxian\uEngine\Galaxian\bin\Debug\Galaxian.exe
+D:\Documentos\GitHub\Galaxian\uEngine\Galaxian\bin\Debug\Galaxian.pdb
+D:\Documentos\GitHub\Galaxian\uEngine\Galaxian\bin\Debug\uEngine.dll
+D:\Documentos\GitHub\Galaxian\uEngine\Galaxian\bin\Debug\uEngine.pdb
+D:\Documentos\GitHub\Galaxian\uEngine\Galaxian\obj\Debug\Galaxian.csproj.CopyComplete
+D:\Documentos\GitHub\Galaxian\uEngine\Galaxian\obj\Debug\Galaxian.exe
+D:\Documentos\GitHub\Galaxian\uEngine\Galaxian\obj\Debug\Galaxian.pdb

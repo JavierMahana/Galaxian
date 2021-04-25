@@ -1,0 +1,16 @@
+D:\Dropbox\Universidad de Talca\Ingeniería en Desarrollo de Videojuegos y Realidad Virtual\Cursos\2021 - 1\Programación de Videojuegos 2D\Proyectos\uEngine\uEngine\bin\Debug\uEngine.dll
+D:\Dropbox\Universidad de Talca\Ingeniería en Desarrollo de Videojuegos y Realidad Virtual\Cursos\2021 - 1\Programación de Videojuegos 2D\Proyectos\uEngine\uEngine\bin\Debug\uEngine.pdb
+D:\Dropbox\Universidad de Talca\Ingeniería en Desarrollo de Videojuegos y Realidad Virtual\Cursos\2021 - 1\Programación de Videojuegos 2D\Proyectos\uEngine\uEngine\obj\Debug\uEngine.csprojAssemblyReference.cache
+D:\Dropbox\Universidad de Talca\Ingeniería en Desarrollo de Videojuegos y Realidad Virtual\Cursos\2021 - 1\Programación de Videojuegos 2D\Proyectos\uEngine\uEngine\obj\Debug\uEngine.csproj.CoreCompileInputs.cache
+D:\Dropbox\Universidad de Talca\Ingeniería en Desarrollo de Videojuegos y Realidad Virtual\Cursos\2021 - 1\Programación de Videojuegos 2D\Proyectos\uEngine\uEngine\obj\Debug\uEngine.dll
+D:\Dropbox\Universidad de Talca\Ingeniería en Desarrollo de Videojuegos y Realidad Virtual\Cursos\2021 - 1\Programación de Videojuegos 2D\Proyectos\uEngine\uEngine\obj\Debug\uEngine.pdb
+D:\Dropbox\Universidad de Talca\Ingeniería en Desarrollo de Videojuegos y Realidad Virtual\Cursos\2021 - 1\Programación de Videojuegos 2D\Proyectos\uEngine\uEngine\obj\Debug\uEngine.uWindow.resources
+D:\Dropbox\Universidad de Talca\Ingeniería en Desarrollo de Videojuegos y Realidad Virtual\Cursos\2021 - 1\Programación de Videojuegos 2D\Proyectos\uEngine\uEngine\obj\Debug\uEngine.csproj.GenerateResource.cache
+D:\Documentos\GitHub\Galaxian\uEngine\uEngine\bin\Debug\uEngine.dll
+D:\Documentos\GitHub\Galaxian\uEngine\uEngine\bin\Debug\uEngine.pdb
+D:\Documentos\GitHub\Galaxian\uEngine\uEngine\obj\Debug\uEngine.csprojAssemblyReference.cache
+D:\Documentos\GitHub\Galaxian\uEngine\uEngine\obj\Debug\uEngine.uWindow.resources
+D:\Documentos\GitHub\Galaxian\uEngine\uEngine\obj\Debug\uEngine.csproj.GenerateResource.cache
+D:\Documentos\GitHub\Galaxian\uEngine\uEngine\obj\Debug\uEngine.csproj.CoreCompileInputs.cache
+D:\Documentos\GitHub\Galaxian\uEngine\uEngine\obj\Debug\uEngine.dll
+D:\Documentos\GitHub\Galaxian\uEngine\uEngine\obj\Debug\uEngine.pdb

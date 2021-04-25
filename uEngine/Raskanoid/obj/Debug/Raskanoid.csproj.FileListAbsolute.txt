@@ -1,0 +1,20 @@
+D:\Dropbox\Universidad de Talca\Ingeniería en Desarrollo de Videojuegos y Realidad Virtual\Cursos\2021 - 1\Programación de Videojuegos 2D\Proyectos\uEngine\Raskanoid\bin\Debug\Raskanoid.exe.config
+D:\Dropbox\Universidad de Talca\Ingeniería en Desarrollo de Videojuegos y Realidad Virtual\Cursos\2021 - 1\Programación de Videojuegos 2D\Proyectos\uEngine\Raskanoid\bin\Debug\Raskanoid.exe
+D:\Dropbox\Universidad de Talca\Ingeniería en Desarrollo de Videojuegos y Realidad Virtual\Cursos\2021 - 1\Programación de Videojuegos 2D\Proyectos\uEngine\Raskanoid\bin\Debug\Raskanoid.pdb
+D:\Dropbox\Universidad de Talca\Ingeniería en Desarrollo de Videojuegos y Realidad Virtual\Cursos\2021 - 1\Programación de Videojuegos 2D\Proyectos\uEngine\Raskanoid\bin\Debug\uEngine.dll
+D:\Dropbox\Universidad de Talca\Ingeniería en Desarrollo de Videojuegos y Realidad Virtual\Cursos\2021 - 1\Programación de Videojuegos 2D\Proyectos\uEngine\Raskanoid\bin\Debug\uEngine.pdb
+D:\Dropbox\Universidad de Talca\Ingeniería en Desarrollo de Videojuegos y Realidad Virtual\Cursos\2021 - 1\Programación de Videojuegos 2D\Proyectos\uEngine\Raskanoid\obj\Debug\Raskanoid.csprojAssemblyReference.cache
+D:\Dropbox\Universidad de Talca\Ingeniería en Desarrollo de Videojuegos y Realidad Virtual\Cursos\2021 - 1\Programación de Videojuegos 2D\Proyectos\uEngine\Raskanoid\obj\Debug\Raskanoid.csproj.CoreCompileInputs.cache
+D:\Dropbox\Universidad de Talca\Ingeniería en Desarrollo de Videojuegos y Realidad Virtual\Cursos\2021 - 1\Programación de Videojuegos 2D\Proyectos\uEngine\Raskanoid\obj\Debug\Raskanoid.csproj.CopyComplete
+D:\Dropbox\Universidad de Talca\Ingeniería en Desarrollo de Videojuegos y Realidad Virtual\Cursos\2021 - 1\Programación de Videojuegos 2D\Proyectos\uEngine\Raskanoid\obj\Debug\Raskanoid.exe
+D:\Dropbox\Universidad de Talca\Ingeniería en Desarrollo de Videojuegos y Realidad Virtual\Cursos\2021 - 1\Programación de Videojuegos 2D\Proyectos\uEngine\Raskanoid\obj\Debug\Raskanoid.pdb
+D:\Documentos\GitHub\Galaxian\uEngine\Raskanoid\bin\Debug\Raskanoid.exe.config
+D:\Documentos\GitHub\Galaxian\uEngine\Raskanoid\bin\Debug\Raskanoid.exe
+D:\Documentos\GitHub\Galaxian\uEngine\Raskanoid\bin\Debug\Raskanoid.pdb
+D:\Documentos\GitHub\Galaxian\uEngine\Raskanoid\bin\Debug\uEngine.dll
+D:\Documentos\GitHub\Galaxian\uEngine\Raskanoid\bin\Debug\uEngine.pdb
+D:\Documentos\GitHub\Galaxian\uEngine\Raskanoid\obj\Debug\Raskanoid.csprojAssemblyReference.cache
+D:\Documentos\GitHub\Galaxian\uEngine\Raskanoid\obj\Debug\Raskanoid.csproj.CoreCompileInputs.cache
+D:\Documentos\GitHub\Galaxian\uEngine\Raskanoid\obj\Debug\Raskanoid.csproj.CopyComplete
+D:\Documentos\GitHub\Galaxian\uEngine\Raskanoid\obj\Debug\Raskanoid.exe
+D:\Documentos\GitHub\Galaxian\uEngine\Raskanoid\obj\Debug\Raskanoid.pdb
