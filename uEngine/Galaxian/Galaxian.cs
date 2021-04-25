@@ -21,7 +21,8 @@ namespace Galaxian
 
         private Random rand;
 
-        public List<Enemy> enemies = new List<Enemy>(40);
+        //public List<Enemy> enemies = new List<Enemy>(40);
+        public Enemy[,] enemies = new Enemy[10,4];
         private int originXOffset;
         private System.Windows.Point enemiesOrigin;
         private float originSpeed;
@@ -30,6 +31,9 @@ namespace Galaxian
         private int originSpots;
         private int currOriginSpot;
         private bool originDirection;
+
+        private long lunchEnemyTimer;
+        private long timeToLunchEnemy;
 
         public void MoveOrigin(long deltaTime)
         {
@@ -81,6 +85,58 @@ namespace Galaxian
             return new System.Windows.Point(enemiesOrigin.X + xOffset, enemiesOrigin.Y + yOffset);
         }
 
+        public void TryLunchEnemyAttack(long deltaTime)
+        {
+            lunchEnemyTimer += deltaTime;
+            if (lunchEnemyTimer >= timeToLunchEnemy)
+            {
+                lunchEnemyTimer = 0;
+                int v = rand.Next(2);
+
+                //elige el de más a la izquierda
+                if (v == 0)
+                {
+                    for (int y = 0; y < 4; y++)
+                    {
+                        for (int x = 0; x < 10; x++)
+                        {
+                            if (enemies[x, y] != null)
+                            {
+                                if (enemies[x, y].isActive == false)
+                                {
+                                    //enemies[x, y] = null;
+                                    enemies[x, y].Launch();
+                                    return;
+                                    //enemies[x, y].Lunch();
+                                }
+
+                            }
+                        }
+                    }
+                }
+                //elige el de más a la derecha
+                else
+                {
+                    for (int y = 0; y < 4; y++)
+                    {
+                        for (int x = 9; x >= 0; x--)
+                        {
+                            if (enemies[x, y] != null)
+                            {
+                                if (enemies[x, y].isActive == false)
+                                {
+                                    //enemies[x, y] = null;
+                                    enemies[x, y].Launch();
+                                    return;
+                                    //enemies[x, y].Lunch();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
 
         public System.Windows.Point GetBulletSpawnPoint()
         {
@@ -116,18 +172,28 @@ namespace Galaxian
             }
         }
 
-        public void MoveAllEnemies()
+        public void MoveAllEnemies(long deltaTime)
         {
             foreach (var enemy in enemies)
             {
-                MoveEnemy(enemy);
+                MoveEnemy(enemy, deltaTime);
             }
         }
 
-        public void MoveEnemy(Enemy enemy)
+        public void MoveEnemy(Enemy enemy, long deltaTime)
         {
+            if (enemy == null)
+            {
+                return;
+            }
+
             if (enemy.isActive)
             {
+                enemy.UpdateOnAttack(player.Position, deltaTime);
+                if (OutOfBounds(enemy.BoundingBox))
+                {
+                    enemy.Reset();
+                }
             }
             else 
             {
@@ -153,7 +219,11 @@ namespace Galaxian
             dc.FillRectangle(yellowBrush, new Rectangle((int)pBullet.Position.X, (int)pBullet.Position.Y, (int)pBullet.Width, (int)pBullet.Height));
             foreach (var enemy in enemies)
             {
-                dc.FillRectangle(redBrush, new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, (int)enemy.Width, (int)enemy.Height));
+                if (enemy != null)
+                {
+                    dc.FillRectangle(redBrush, new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, (int)enemy.Width, (int)enemy.Height));
+
+                }
             }
         }
 
@@ -161,10 +231,15 @@ namespace Galaxian
         {
             foreach (var enemy in enemies)
             {
+                if (enemy == null)
+                {
+                    continue;
+                }
                 if (Collisionable.Collide(enemy, pBullet))
                 {
                     PBulletRestart();
-                    enemies.Remove(enemy);
+                    enemies[enemy.coordX, enemy.coordY] = null;
+                    //enemies.Remove(enemy);
                     return;
                 }
             }
@@ -209,12 +284,43 @@ namespace Galaxian
             currOriginSpot = 6;
             originDirection = true;
 
+
+            lunchEnemyTimer = 0;
+            timeToLunchEnemy = 1000;
+
+
+            float enemyMaxSpeed = 0.5f;
+            float enemyMaxAccel = 0.012f;
+
+            float rad1 = (float)(225 * Math.PI) / 180;
+            float velx1 = (float)(enemyMaxSpeed * Math.Cos(rad1));
+            float vely1 = (float)(enemyMaxSpeed * Math.Sin(rad1));
+            Vector velInicial1 = new Vector(velx1, vely1);
+
+            float rad2 = (float)(315 * Math.PI) / 180;
+            float velx2 = (float)(enemyMaxSpeed * Math.Cos(rad2));
+            float vely2 = (float)(enemyMaxSpeed * Math.Sin(rad2));
+            Vector velInicial2 = new Vector(velx2, vely2);
+
             for (int y = 0; y < 4; y++)
             {
                 for (int x = 0; x < 10; x++)
                 {
                     var pos = CalculateEnemyGridPosition(x, y);
-                    enemies.Add( new Enemy(new Rect(pos.X, pos.Y, enemySize, enemySize), x, y));
+                    //enemies.Add( new Enemy(new Rect(pos.X, pos.Y, enemySize, enemySize), x, y));
+
+                    //la velocidad inicial es para la izquierda
+                    if (x <= 4)
+                    {
+                        enemies[x, y] = new Enemy(new Rect(pos.X, pos.Y, enemySize, enemySize), x, y, velInicial1, enemyMaxSpeed, enemyMaxAccel);
+                    }
+                    //la velocidad inicial es para la derecha
+                    else
+                    {
+                        enemies[x, y] = new Enemy(new Rect(pos.X, pos.Y, enemySize, enemySize), x, y, velInicial2, enemyMaxSpeed, enemyMaxAccel);
+                    }
+
+                    
                 }
             }
 

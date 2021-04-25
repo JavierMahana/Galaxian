@@ -47,9 +47,9 @@ namespace Galaxian
             gameData.UpdatePBullet(DeltaTime);
 
             gameData.MoveOrigin(DeltaTime);
-            gameData.MoveAllEnemies();
+            gameData.MoveAllEnemies(DeltaTime);
 
-
+            gameData.TryLunchEnemyAttack(DeltaTime);
         }
 
         public override void ProcessInput()
