@@ -102,7 +102,7 @@ namespace Galaxian
                         {
                             if (enemies[x, y] != null)
                             {
-                                if (enemies[x, y].isActive == false)
+                                if (enemies[x, y].isActive == false && enemies[x, y].isParking == false)
                                 {
                                     //enemies[x, y] = null;
                                     enemies[x, y].Launch();
@@ -123,7 +123,7 @@ namespace Galaxian
                         {
                             if (enemies[x, y] != null)
                             {
-                                if (enemies[x, y].isActive == false)
+                                if (enemies[x, y].isActive == false && enemies[x, y].isParking == false)
                                 {
                                     //enemies[x, y] = null;
                                     enemies[x, y].Launch();
@@ -195,7 +195,13 @@ namespace Galaxian
                     enemy.Reset();
                 }
             }
-            else 
+            else if(enemy.isParking)
+            {
+                var desiredPos = CalculateEnemyGridPosition(enemy.coordX, enemy.coordY);
+                enemy.UpdateOnParking(desiredPos, deltaTime);
+                //enemy.MoveTo();
+            }
+            else
             {
                 enemy.MoveTo(CalculateEnemyGridPosition(enemy.coordX, enemy.coordY));
             }

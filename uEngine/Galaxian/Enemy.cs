@@ -23,7 +23,6 @@ namespace Galaxian
         public float maxSpeed;
         public float maxAceleration;
 
-        
 
         public void Launch()
         {
@@ -33,6 +32,21 @@ namespace Galaxian
         public void Reset()
         {
             isActive = false;
+            isParking = true;
+            //la coordenada x no importa. Lo unico importante es que vuelva a la coord y = 0.
+            MoveTo(new Point(50, 0));
+        }
+
+        public void UpdateOnParking(Point targetPosition, long deltaTime)
+        {
+            double posY = Position.Y + ((maxSpeed/3) * deltaTime);
+            if (posY >= targetPosition.Y)
+            {
+                posY = targetPosition.Y;
+                isParking = false;
+            }
+            MoveTo(new Point(targetPosition.X, posY));
+
         }
 
         public void UpdateOnAttack(Point targetPosition, long deltaTime)
