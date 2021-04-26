@@ -16,6 +16,7 @@ namespace Galaxian
         public int coordY;
         public bool isActive;
         public bool isParking;
+        public bool attack;
 
         public Vector currVelocity;
 
@@ -23,11 +24,13 @@ namespace Galaxian
         public float maxSpeed;
         public float maxAceleration;
 
+        public int points;
 
         public void Launch()
         {
             currVelocity = startingVelocity;
             isActive = true;
+            attack = true;
         }
         public void Reset()
         {
@@ -65,16 +68,18 @@ namespace Galaxian
 
             Move(currVelocity * deltaTime);
         }
-        public Enemy(Rect bBox, int coordX, int coordY, Vector startingVelocity, float maxSpeed, float maxAceleration) : base(bBox)
+        public Enemy(Rect bBox, int coordX, int coordY, Vector startingVelocity, float maxSpeed, float maxAceleration, int points) : base(bBox)
         {
             this.coordX = coordX;
             this.coordY = coordY;
             isActive = false;
             isParking = false;
+            attack = false;
 
             this.startingVelocity = startingVelocity;
             this.maxSpeed = maxSpeed;
             this.maxAceleration = maxAceleration;
+            this.points = points*100;
         }
     }
 }

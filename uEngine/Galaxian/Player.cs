@@ -15,6 +15,5 @@ namespace Galaxian
         {
             this.speed = speed;
         }
-
     }
 }

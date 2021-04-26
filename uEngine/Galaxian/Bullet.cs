@@ -11,11 +11,12 @@ namespace Galaxian
     class Bullet : Collisionable
     {
         private Vector velocity;
+        public bool Activo = false;
 
 
         public Bullet(Rect boundingBox, Vector vel) : base(boundingBox)
         {
-            velocity = vel;
+            velocity = vel ;
         }
         //public void MoveTo
         public void Update(long deltaTime)
@@ -23,6 +24,5 @@ namespace Galaxian
              Move(velocity * deltaTime);
         }
 
-        
     }
 }

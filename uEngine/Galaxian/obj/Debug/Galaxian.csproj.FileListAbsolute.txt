@@ -8,3 +8,13 @@ D:\Documentos\GitHub\Galaxian\uEngine\Galaxian\bin\Debug\uEngine.pdb
 D:\Documentos\GitHub\Galaxian\uEngine\Galaxian\obj\Debug\Galaxian.csproj.CopyComplete
 D:\Documentos\GitHub\Galaxian\uEngine\Galaxian\obj\Debug\Galaxian.exe
 D:\Documentos\GitHub\Galaxian\uEngine\Galaxian\obj\Debug\Galaxian.pdb
+D:\Usuario\Documentos DS\GitHub Proyects\Galaxian\uEngine\Galaxian\bin\Debug\Galaxian.exe.config
+D:\Usuario\Documentos DS\GitHub Proyects\Galaxian\uEngine\Galaxian\bin\Debug\Galaxian.exe
+D:\Usuario\Documentos DS\GitHub Proyects\Galaxian\uEngine\Galaxian\bin\Debug\Galaxian.pdb
+D:\Usuario\Documentos DS\GitHub Proyects\Galaxian\uEngine\Galaxian\bin\Debug\uEngine.dll
+D:\Usuario\Documentos DS\GitHub Proyects\Galaxian\uEngine\Galaxian\bin\Debug\uEngine.pdb
+D:\Usuario\Documentos DS\GitHub Proyects\Galaxian\uEngine\Galaxian\obj\Debug\Galaxian.csprojAssemblyReference.cache
+D:\Usuario\Documentos DS\GitHub Proyects\Galaxian\uEngine\Galaxian\obj\Debug\Galaxian.csproj.CoreCompileInputs.cache
+D:\Usuario\Documentos DS\GitHub Proyects\Galaxian\uEngine\Galaxian\obj\Debug\Galaxian.csproj.CopyComplete
+D:\Usuario\Documentos DS\GitHub Proyects\Galaxian\uEngine\Galaxian\obj\Debug\Galaxian.exe
+D:\Usuario\Documentos DS\GitHub Proyects\Galaxian\uEngine\Galaxian\obj\Debug\Galaxian.pdb

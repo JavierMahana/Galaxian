@@ -19,6 +19,7 @@ namespace Galaxian
         {
             BoundingBox = boundingBox;
         }
+ 
         public void MoveTo(Point point)
         {
             Vector movement = point - BoundingBox.Location;

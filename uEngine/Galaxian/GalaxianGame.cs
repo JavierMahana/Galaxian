@@ -17,7 +17,10 @@ namespace Galaxian
         private bool xKey;
         private bool leftKey;
         private bool rightKey;
-
+        private int leftMouse;
+        private System.Drawing.Point mousePosition;
+        private bool Gamescene;
+        private int clickDelay = 0;
 
         public GalaxianGame(int width, int height, int targetFPS) : base(width, height, targetFPS)
         {
@@ -25,39 +28,66 @@ namespace Galaxian
 
             leftKey = false;
             rightKey = true;
+            Gamescene = false;
+            
         }
 
         public override void GameUpdate()
         {
-            
-            if (rightKey && !leftKey)
+         
+            // menu
+            if (!Gamescene)
             {
-                gameData.MovePlayer(DeltaTime, true);
+                if(leftMouse != -1 && clickDelay == 0)
+                {
+                    clickDelay = 8;
+                    Gamescene = gameData.MenuOptions(mousePosition);
+                    gameData.newScene(true); 
+                    
+                }
+               
             }
-            else if (leftKey && !rightKey)
+            // escena de juego
+            else 
             {
-                gameData.MovePlayer(DeltaTime, false);
-            }
+                if (rightKey && !leftKey)
+                {
+                    gameData.MovePlayer(DeltaTime, true);
+                }
+                else if (leftKey && !rightKey)
+                {
+                    gameData.MovePlayer(DeltaTime, false);
+                }
+                if (xKey)
+                {
+                    gameData.PlayerShoot();
+                }
 
-            if (xKey)
+                gameData.UpdatePBullet(DeltaTime);
+                gameData.MoveOrigin(DeltaTime);
+                gameData.MoveAllEnemies(DeltaTime);
+                gameData.EnemycollisionCheck();
+                gameData.EnemyBulletCollisionCheck(-DeltaTime);
+                gameData.EnemyShooter(DeltaTime);
+                    
+                gameData.TryLunchEnemyAttack(DeltaTime);
+
+                Gamescene = gameData.VictoryCondition();
+            }
+            if (clickDelay > 0)
             {
-                gameData.PlayerShoot();
+                clickDelay--;
             }
 
-            gameData.UpdatePBullet(DeltaTime);
-
-            gameData.MoveOrigin(DeltaTime);
-            gameData.MoveAllEnemies(DeltaTime);
-
-            gameData.TryLunchEnemyAttack(DeltaTime);
         }
 
         public override void ProcessInput()
         {
             xKey = InputManager.IsKeyPressed("X");
-
             leftKey = InputManager.IsKeyPressed("Left");
             rightKey = InputManager.IsKeyPressed("Right");
+            leftMouse = InputManager.MouseButton();
+            mousePosition = InputManager.MouseLocation();
 
         }
 
