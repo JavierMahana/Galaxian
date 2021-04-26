@@ -34,10 +34,11 @@ namespace Galaxian
 
         public override void GameUpdate()
         {
-         
+            gameData.MoveEstrellas(DeltaTime);
             // menu
             if (!Gamescene)
             {
+
                 if(leftMouse != -1 && clickDelay == 0)
                 {
                     clickDelay = 8;
@@ -63,12 +64,20 @@ namespace Galaxian
                     gameData.PlayerShoot();
                 }
 
+                //gameData.MoveEstrellas(DeltaTime);
+
                 gameData.UpdatePBullet(DeltaTime);
                 gameData.MoveOrigin(DeltaTime);
                 gameData.MoveAllEnemies(DeltaTime);
+
+                gameData.MoveEnemyBullets(DeltaTime);
+
+
                 gameData.EnemycollisionCheck();
-                gameData.EnemyBulletCollisionCheck(-DeltaTime);
-                gameData.EnemyShooter(DeltaTime);
+                gameData.EnemyBulletCollisionCheck();
+
+                gameData.EnemyTryToShoot();
+                //gameData.EnemyShooter(DeltaTime);
                     
                 gameData.TryLunchEnemyAttack(DeltaTime);
 

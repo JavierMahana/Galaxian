@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Galaxian
 {
@@ -12,6 +13,7 @@ namespace Galaxian
         [STAThread]
         static void Main(string[] args)
         {
+
             GalaxianGame game = new GalaxianGame(1024, 768, 60);
             game.Start();
 

@@ -27,7 +27,7 @@ namespace Galaxian
         }
         public void Move(Vector ammount)
         {
-            Console.WriteLine($"moviendo: {ammount}");
+            //Console.WriteLine($"moviendo: {ammount}");
             BoundingBox = new Rect(BoundingBox.X + ammount.X, BoundingBox.Y + ammount.Y, BoundingBox.Width, BoundingBox.Height);
             //BoundingBox.Offset(ammount);
         }

@@ -11,7 +11,7 @@ namespace Galaxian
     class Bullet : Collisionable
     {
         private Vector velocity;
-        public bool Activo = false;
+        //public bool Activo = false;
 
 
         public Bullet(Rect boundingBox, Vector vel) : base(boundingBox)

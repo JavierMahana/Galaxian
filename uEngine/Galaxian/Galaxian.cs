@@ -30,8 +30,11 @@ namespace Galaxian
 
         private Random rand;
 
+
         //public List<Enemy> enemies = new List<Enemy>(40);
-        public Bullet[] enemyBullets = new Bullet[10];
+        public List<Bullet> enemyBullets = new List<Bullet>(10);
+
+        //public Bullet[] enemyBullets = new Bullet[10];
         public Enemy[,] enemies = new Enemy[10, 4];
         private int originXOffset;
         private System.Windows.Point bulletsOrigin;
@@ -46,6 +49,10 @@ namespace Galaxian
 
         private long lunchEnemyTimer;
         private long timeToLunchEnemy;
+
+        private int eBulletWidth;
+        private int eBulletHeight;
+        private float eBulletSpeed;
 
         // menu
         private int contadorEstrellas;
@@ -66,9 +73,13 @@ namespace Galaxian
         Brush lightGreenBrush = new SolidBrush(Color.LightGreen);
  
         public Rectangle[] estrellas = new Rectangle[16];
+        private float estrellasSpeed;
 
-
-        public Image playerImg;/*
+        public Image playerImg;
+        public Image enemy1Img;
+        public Image enemy2Img;
+        public Image enemy3Img;
+        /*
         public Image nave1IMG;
         public Image nave2IMG;
         public Image nave3IMG;
@@ -267,36 +278,49 @@ namespace Galaxian
 
             return new System.Windows.Point(enemiesOrigin.X + xOffset, enemiesOrigin.Y + yOffset);
         }
-        public void EnemyBulletRestart(Bullet bullet)
-        {
-            bullet.Activo = false;
-            bullet.MoveTo(bulletsOrigin);
-        }
-        public void EnemyBulletCollisionCheck(long deltaTime)
+
+        public void MoveEnemyBullets(long deltaTime)
         {
             foreach (var bullet in enemyBullets)
             {
-                if (bullet.Activo)
-                {
-                    bullet.Update(deltaTime);
-                }
 
+                bullet.Update(deltaTime);
+                //if (bullet.Activo)
+                //{
+                    
+                //}
+            }
+        }
+
+
+        public void EnemyBulletCollisionCheck()
+        {
+            List<Bullet> bulletsToRemove = new List<Bullet>();
+            foreach (var bullet in enemyBullets)
+            {
                 if (Collisionable.Collide(bullet, player))
                 {
-                    EnemyBulletRestart(bullet);
+                    bulletsToRemove.Add(bullet);
                     vidas--;
-                    return;
-                    
                 }
 
+                else if (OutOfBounds(bullet.BoundingBox))
+                {
+                    bulletsToRemove.Add(bullet);
+                }
+            }
+
+            foreach (var bull in bulletsToRemove)
+            {
+                enemyBullets.Remove(bull);
             }
 
         }
-        public System.Windows.Point EnemyBulletSpawnPoint(Enemy enemy, Bullet bullet)
+        public System.Windows.Point EnemyBulletSpawnPoint(Enemy enemy)
         {
-            if (enemies != null && bullet != null)
+            if (enemy != null)
             {
-                return new System.Windows.Point(enemy.Position.X + enemy.Width / 2 - bullet.Width, enemy.Position.Y - bullet.Height);
+                return new System.Windows.Point(enemy.Position.X + enemy.Width / 2 - eBulletWidth, enemy.Position.Y - eBulletHeight);
             }
             else
             {
@@ -305,7 +329,9 @@ namespace Galaxian
             }
 
         }
-        public void EnemyShooter(long deltaTime)
+
+
+        public void EnemyTryToShoot()
         {
             foreach (var enemy in enemies)
             {
@@ -317,24 +343,29 @@ namespace Galaxian
                 if (enemy.Position.Y > Height / 2 && enemy.attack)
                 {
                     enemy.attack = false;
-                    for( int i = 0; i < 10; i++)
-                    {
+                    var spawnPoint = EnemyBulletSpawnPoint(enemy);
 
-                        if (OutOfBounds(enemyBullets[i].BoundingBox))
-                        {
-                            EnemyBulletRestart(enemyBullets[i]);
-                        }
+                    var desiredVelocity = player.Position - enemy.Position;
+                    desiredVelocity.Normalize();
+                    desiredVelocity *= eBulletSpeed;
 
-                        if (!enemyBullets[i].Activo)
-                        {
-                            enemyBullets[i].Activo = true;
-                            enemyBullets[i].MoveTo(EnemyBulletSpawnPoint(enemy,enemyBullets[i]));
-                            return;
-                        }
-                        EnemyBulletCollisionCheck(deltaTime);
-                    }
+                    var newBullet = new Bullet(new Rect(spawnPoint.X, spawnPoint.Y, eBulletWidth, eBulletHeight), desiredVelocity);
+                    enemyBullets.Add(newBullet);
+                    //for( int i = 0; i < 10; i++)
+                    //{
+                    //    //chequea si esta aut of bounds
 
-                    return;
+                    //    if (!enemyBullets[i].Activo)
+                    //    {
+                    //        enemyBullets[i].Activo = true;
+                    //        enemyBullets[i].MoveTo(EnemyBulletSpawnPoint(enemy,enemyBullets[i]));
+                    //        return;
+                    //    }
+                    //    //EnemyBulletCollisionCheck(deltaTime);
+                    //}
+
+                    
+                    //return;
                 }
 
             }
@@ -560,15 +591,58 @@ namespace Galaxian
             if (toTheRight)
             {
                 player.Move(new Vector(player.speed * deltaTime, 0));
+                if (player.Position.X + player.Width >= Width)
+                {
+                    player.MoveTo(new System.Windows.Point(Width - player.Width, player.Position.Y));
+                }
                 //Console.WriteLine($"Moving the player {player.speed * deltaTime}");
             }
             else
             {
                 player.Move(new Vector(-player.speed * deltaTime, 0));
+                if (player.Position.X <= 0)
+                {
+                    player.MoveTo(new System.Windows.Point(0, player.Position.Y));
+                }
                 //Console.WriteLine($"Moving the player {-player.speed * deltaTime}");
             }
         }
 
+        public void MoveEstrellas(long deltaTime)
+        {
+            for (int i = 0; i < 16; i++)
+            {
+                if (estrellas[i].Y > Height)
+                {
+                    estrellas[i].X = rand.Next(Width);
+                    estrellas[i].Y = 0;
+                }
+                else 
+                {
+                    estrellas[i].Y += (int)(deltaTime * estrellasSpeed);
+                }
+
+
+            }
+            //if (contadorEstrellas > 80)
+            //{
+            //    contadorEstrellas--;
+            //}
+            //else if (contadorEstrellas > 0 && contadorEstrellas <= 80)
+            //{
+            //    for (int i = 0; i < 16; i++)
+            //    {
+                    
+            //    }
+            //    contadorEstrellas--;
+            //}
+            //else
+            //{
+
+            //    contadorEstrellas = 100;
+            //}
+
+        }
 
         // pintar
         public void Paint(Graphics dc)
@@ -581,40 +655,18 @@ namespace Galaxian
           
             drawFormat.FormatFlags = StringFormatFlags.NoWrap;
 
+            //pintar estrellas
             for (int i = 0; i < 16; i++)
             {
-                if (estrellas[i].Y > Height)
-                {
-                    estrellas[i].X = rand.Next(Width);
-                    estrellas[i].Y = 0;
-                }
+                if (i >= 0 && i <= 4)
+                { dc.FillRectangle(pinkBrush, estrellas[i]); }
+                if (i >= 4 && i <= 8)
+                { dc.FillRectangle(lightBlueBrush, estrellas[i]); }
+                if (i >= 8 && i <= 12)
+                { dc.FillRectangle(whiteBrush, estrellas[i]); }
+                if (i >= 12 && i <= 16)
+                { dc.FillRectangle(lightGreenBrush, estrellas[i]); }
             }
-            if (contadorEstrellas > 80)
-            {
-                contadorEstrellas--;
-            }
-            else if(contadorEstrellas > 0 && contadorEstrellas <= 80)          
-            {              
-                for (int i = 0; i < 16; i++)
-                {             
-                    estrellas[i].Y += 3;
-                    if(i>=0 && i<=4)
-                    {   dc.FillRectangle(pinkBrush, estrellas[i]); }
-                    if (i >= 4 && i <= 8)
-                    { dc.FillRectangle(lightBlueBrush, estrellas[i]); }
-                    if (i >= 8 && i <= 12)
-                    { dc.FillRectangle(whiteBrush, estrellas[i]); }
-                    if (i >= 12 && i <= 16)
-                    { dc.FillRectangle(lightGreenBrush, estrellas[i]); }
-                }
-                contadorEstrellas--;
-            }
-            else
-            {
-                  
-                contadorEstrellas = 100;
-            }
-       
 
             if (currMenu == 0)
             {
@@ -650,11 +702,11 @@ namespace Galaxian
             }
             else
             {
-                
-             
+
+                dc.DrawImage(playerImg, new Rectangle((int)player.Position.X, (int)player.Position.Y, (int)player.Width, (int)player.Height));
                // dc.DrawImage(playerImg, GetBulletSpawnPoint);
 
-                dc.FillRectangle(whiteBrush, new Rectangle((int)player.Position.X, (int)player.Position.Y, (int)player.Width, (int)player.Height));
+                //dc.FillRectangle(whiteBrush, new Rectangle((int)player.Position.X, (int)player.Position.Y, (int)player.Width, (int)player.Height));
                 dc.FillRectangle(yellowBrush, new Rectangle((int)pBullet.Position.X, (int)pBullet.Position.Y, (int)pBullet.Width, (int)pBullet.Height));
 
                 foreach (var bullet in enemyBullets)
@@ -668,17 +720,20 @@ namespace Galaxian
                     {
                         if (enemy.points == 100)
                         {
-                            dc.FillRectangle(greenBrush, new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, (int)enemy.Width, (int)enemy.Height));
+                            dc.DrawImage(enemy1Img, new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, (int)enemy.Width, (int)enemy.Height));
+                            //dc.FillRectangle(greenBrush, new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, (int)enemy.Width, (int)enemy.Height));
 
                         }
                         if (enemy.points == 200)
                         {
-                            dc.FillRectangle(lightBlueBrush, new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, (int)enemy.Width, (int)enemy.Height));
+                            dc.DrawImage(enemy2Img, new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, (int)enemy.Width, (int)enemy.Height));
+                            //dc.FillRectangle(lightBlueBrush, new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, (int)enemy.Width, (int)enemy.Height));
 
                         }
                         if (enemy.points == 300)
                         {
-                            dc.FillRectangle(redBrush, new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, (int)enemy.Width, (int)enemy.Height));
+                            dc.DrawImage(enemy3Img, new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, (int)enemy.Width, (int)enemy.Height));
+                            //dc.FillRectangle(redBrush, new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, (int)enemy.Width, (int)enemy.Height));
 
                         }
 
@@ -699,9 +754,30 @@ namespace Galaxian
         // "main"
         public Galaxian(int width, int height, System.Windows.Point playerSize, float playerSpd, int enemySize, int enemyOffset, System.Windows.Point originPos)
         {
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            path = path + "\\png\\";
+
+            Console.WriteLine($"The current directory is {path}");
+
+            playerImg = new Bitmap(path + "playerShip.png");
+            enemy1Img = new Bitmap(path + "ufoGreen.png");
+            enemy2Img = new Bitmap(path + "ufoBlue.png");
+            enemy3Img = new Bitmap(path + "ufoRed.png");
+            /*
+           playerImg = new Bitmap("jugador.png");
+           nave1IMG = new Bitmap("nave1.png");
+           nave2IMG = new Bitmap("nave2.png");
+           nave3IMG = new Bitmap("nave3.png");
+           playerIconIMG = new Bitmap("iconoNave.png");
+           playerDeathIMG = new Bitmap("muerteJugador.png");
+           naveDeathIMG = new Bitmap("muerteEnemigo.png");*/
+
+
             rand = new Random();
             Width = width;
             Height = height;
+
+            estrellasSpeed = 0.1f;
 
             contadorEstrellas = 100;
 
@@ -709,22 +785,21 @@ namespace Galaxian
             this.enemySize = enemySize;
             inbetweenSpace = enemyOffset;
             originXOffset = (int)originPos.X;
-            originSpeed = 0.2f;
+            originSpeed = 0.13f;
             originSpots = 7;
             currOriginSpot = 6;
             originDirection = true;
 
             lunchEnemyTimer = 0;
-            timeToLunchEnemy = 1000;
+            timeToLunchEnemy = 1300;
 
-            /*
-            playerImg = new Bitmap("jugador.png");
-            nave1IMG = new Bitmap("nave1.png");
-            nave2IMG = new Bitmap("nave2.png");
-            nave3IMG = new Bitmap("nave3.png");
-            playerIconIMG = new Bitmap("iconoNave.png");
-            playerDeathIMG = new Bitmap("muerteJugador.png");
-            naveDeathIMG = new Bitmap("muerteEnemigo.png");*/
+            eBulletWidth = 3;
+            eBulletHeight = 9;
+            eBulletSpeed = .6f;
+
+
+
+           
 
             pfc.AddFontFile("ARCADE_N.TTF");
             FontSmall = new Font(pfc.Families[0], 12);
@@ -746,10 +821,10 @@ namespace Galaxian
            
             //enemybullets
             bulletsOrigin = new System.Windows.Point(-10, -10);        
-           for (int i = 0; i < 10; i++)
-            {
-                enemyBullets[i] = new Bullet(new Rect(-10, -10, 3, 9), new Vector(0, -0.6));
-            }
+           //for (int i = 0; i < 10; i++)
+           // {
+           //     enemyBullets[i] = new Bullet(new Rect(-10, -10, 3, 9), new Vector(0, -0.6));
+           // }
 
             //leer puntaje máximo
             Console.WriteLine("Ingrese su nombre de usuario");

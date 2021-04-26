@@ -1,6 +1,6 @@
+Jose
+4500
+Rex
+3600
 DSP
 2000
-Cesarito
-1000
-Benny
-700
