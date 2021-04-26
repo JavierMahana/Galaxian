@@ -757,7 +757,7 @@ namespace Galaxian
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             path = path + "\\png\\";
 
-            Console.WriteLine($"The current directory is {path}");
+            //Console.WriteLine($"The current directory is {path}");
 
             playerImg = new Bitmap(path + "playerShip.png");
             enemy1Img = new Bitmap(path + "ufoGreen.png");
